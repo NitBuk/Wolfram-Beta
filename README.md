@@ -1,7 +1,7 @@
-# Wolfarm-Beta 🎯 🧮 🧰
+# Wolfram-Beta 🎯 🧮 🧰
 # Description
 
-- Wolfarm-Beta is a comprehensive application designed to provide calculations across multiple areas of mathematics.
+- Wolfram-Beta is a comprehensive application designed to provide calculations across multiple areas of mathematics.
 - The calculator includes support for Linear Algebra, Calculus, Number Theory, Statistics, Probability, Trigonometry, and Logarithms.
 - It operates through an interactive text-based menu, allowing users to select the type of mathematics they are interested in, and then providing various operations related to that field.
 - Please note that this project is currently in its early stages and is far from finished. Many files require additional work and the functionality is continually being expanded. Contributions are welcome!
@@ -36,7 +36,7 @@ pip install numpy sympy matplotlib math statistics
 
 - To install the project, first, you need to clone the repository to your local machine. Open your terminal and run the following command:
 
-git clone https://github.com/NitBuk/Wolfarm-Beta.git
+git clone https://github.com/NitBuk/Wolfram-Beta.git
 
 - After cloning the repository, navigate to the project's root directory and install the required packages using pip.
 
