@@ -1,7 +1,7 @@
 # main.py
 
 """
-Math Calculator - A comprehensive calculator for Linear Algebra, Calculus, Number Theory, Statistics, Probability, Trigonometry, and Logarithms.
+Wolfram Beta - A comprehensive calculator for Linear Algebra, Calculus, Number Theory, Statistics, Probability, Trigonometry, and Logarithms.
 """
 
 ##############################################################################
@@ -39,8 +39,8 @@ def math_menu() -> int:
     return main_option
 
 
-def math_calculator():
-    print("Welcome to the Math Calculator!")
+def wolfram_beta():
+    print("Welcome to Wolfram Beta!")
     while True:
         main_option = math_menu()
 
@@ -71,4 +71,4 @@ def math_calculator():
 
 
 if __name__ == "__main__":
-    math_calculator()
+    wolfram_beta()
