@@ -1,9 +1,6 @@
-# number_api.py
+"""Interactive menu scaffolding for number theory helpers."""
 
-##############################################################################
-#                                   Imports                                  #
-##############################################################################
-from number_theory import *
+from wolfram_beta.menu import not_implemented, render_menu
 
 ##############################################################################
 #                                 CONSTANTS                                  #
@@ -20,39 +17,41 @@ EXIT = 0
 
 
 def print_number_theory_menu() -> int:
-    print("\nNumber Theory Menu:")
-    print("1: Check if a number is prime")
-    print("2: Calculate the prime factorization of a number")
-    print("3: Calculate the power of a base number")
-    print("4: Calculate the square root of a number")
-    print("5: Find the greatest common divisor of two numbers")
-    print("6: Find the least common multiple of two numbers")
-    print("7: Calculates the nth number in the Fibonacci sequence")
-    print("8: Calculate the factorial of a non-negative integer")
-    print("0: Exit")
-    nt_option = int(input("Enter an option: "))
-    return nt_option
+    return render_menu(
+        "Number Theory Menu",
+        [
+            (PRIME, "Check if a number is prime"),
+            (PRIME_FACTORS, "Calculate the prime factorization of a number"),
+            (POWER, "Calculate the power of a base number"),
+            (SQRT, "Calculate the square root of a number"),
+            (GCD, "Find the greatest common divisor of two numbers"),
+            (LCM, "Find the least common multiple of two numbers"),
+            (FIBONACCI, "Calculate the nth number in the Fibonacci sequence"),
+            (FACTORIAL, "Calculate the factorial of a non-negative integer"),
+        ],
+    )
 
 
 def number_theory_menu():
-    nt_option = print_number_theory_menu()
-    if nt_option == PRIME:
-        pass
-    elif nt_option == PRIME_FACTORS:
-        pass
-    elif nt_option == POWER:
-        pass
-    elif nt_option == SQRT:
-        pass
-    elif nt_option == GCD:
-        pass
-    elif nt_option == LCM:
-        pass
-    elif nt_option == FIBONACCI:
-        pass
-    elif nt_option == FACTORIAL:
-        pass
-    elif nt_option == EXIT:
-        return
-    else:
-        print("Invalid option. Please try again.")
+    while True:
+        nt_option = print_number_theory_menu()
+        if nt_option == PRIME:
+            not_implemented("Primality checks")
+        elif nt_option == PRIME_FACTORS:
+            not_implemented("Prime factorization")
+        elif nt_option == POWER:
+            not_implemented("Power calculations")
+        elif nt_option == SQRT:
+            not_implemented("Square roots")
+        elif nt_option == GCD:
+            not_implemented("Greatest common divisor")
+        elif nt_option == LCM:
+            not_implemented("Least common multiple")
+        elif nt_option == FIBONACCI:
+            not_implemented("Fibonacci sequence")
+        elif nt_option == FACTORIAL:
+            not_implemented("Factorials")
+        elif nt_option == EXIT:
+            return
+        else:
+            print("Invalid option. Please try again.")

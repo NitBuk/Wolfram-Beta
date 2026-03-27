@@ -1,9 +1,9 @@
-# linear_api.py
+"""Interactive menu scaffolding for linear algebra helpers."""
 
-##############################################################################
-#                                   Imports                                  #
-##############################################################################
-from linear_algebra import *
+import numpy as np
+
+from linear_algebra import solve_linear, solve_quadratic
+from wolfram_beta.menu import not_implemented, prompt_float, prompt_int, render_menu
 
 ##############################################################################
 #                                 CONSTANTS                                  #
@@ -26,23 +26,24 @@ EXIT = 0
 
 
 def print_linear_menu() -> int:
-    print("\nLinear Algebra Menu:")
-    print("1: Solve a linear equation")
-    print("2: Solve a quadratic equation")
-    print("3: Add two matrices")
-    print("4: Subtract two matrices")
-    print("5: Multiply a matrix by a scalar")
-    print("6: Multiply two matrices")
-    print("7: Calculates the rank of a matrix")
-    print("8: Check if a matrix is symmetric")
-    print("9: Calculate the inverse of a matrix")
-    print("10: Calculate the transpose of a matrix")
-    print("11: Calculate the trace of a matrix")
-    print("12: Calculate the determinant of a matrix")
-    print("13: Calculate the eigenvalues and eigenvectors of a matrix")
-    print("0: Exit")
-    la_option = int(input("Enter an option: "))
-    return la_option
+    return render_menu(
+        "Linear Algebra Menu",
+        [
+            (LINEAR_EQUATION, "Solve a linear equation"),
+            (QUADRATIC_EQUATION, "Solve a quadratic equation"),
+            (ADD_MATRICES, "Add two matrices"),
+            (SUBTRACT_MATRICES, "Subtract two matrices"),
+            (MULTIPLY_MATRIX_BY_SCALAR, "Multiply a matrix by a scalar"),
+            (MULTIPLY_MATRICES, "Multiply two matrices"),
+            (MATRIX_RANK, "Calculate the rank of a matrix"),
+            (MATRIX_SYMMETRIC, "Check if a matrix is symmetric"),
+            (MATRIX_INVERSE, "Calculate the inverse of a matrix"),
+            (MATRIX_TRANSPOSE, "Calculate the transpose of a matrix"),
+            (MATRIX_TRACE, "Calculate the trace of a matrix"),
+            (MATRIX_DETERMINANT, "Calculate the determinant of a matrix"),
+            (EIGENVALUES_AND_EIGENVECTORS, "Calculate the eigenvalues and eigenvectors of a matrix"),
+        ],
+    )
 
 
 def get_float_input(prompt: str) -> float:
@@ -55,11 +56,7 @@ def get_float_input(prompt: str) -> float:
     Returns:
     float: User input converted to float.
     """
-    while True:
-        try:
-            return float(input(prompt))
-        except ValueError:
-            print("Invalid input. Please enter a number.")
+    return prompt_float(prompt)
 
 
 def get_int_input(prompt: str) -> int:
@@ -72,11 +69,7 @@ def get_int_input(prompt: str) -> int:
     Returns:
     int: User input converted to integer.
     """
-    while True:
-        try:
-            return int(input(prompt))
-        except ValueError:
-            print("Invalid input. Please enter an integer.")
+    return prompt_int(prompt)
 
 
 def get_vector_input() -> np.ndarray | None:
@@ -88,7 +81,10 @@ def get_vector_input() -> np.ndarray | None:
     """
     while True:
         try:
-            return np.array(list(map(float, input("Enter the vector elements separated by spaces: ").split())))
+            values = list(map(float, input("Enter the vector elements separated by spaces: ").split()))
+            if not values:
+                raise ValueError
+            return np.array(values)
         except ValueError:
             print("Invalid input. Please enter a sequence of numbers separated by spaces.")
             return None
@@ -103,12 +99,20 @@ def get_matrix_input() -> np.ndarray | None:
     """
     while True:
         try:
-            rows = int(input("Enter the number of rows in the matrix: "))
+            rows = prompt_int("Enter the number of rows in the matrix: ")
             if rows <= 0:
                 raise ValueError
-            return np.array(
-                [list(map(float, input(f"Enter the elements of row {i + 1} separated by spaces: ").split())) for i in
-                 range(rows)])
+            matrix_rows = []
+            for i in range(rows):
+                row_values = list(map(float, input(f"Enter the elements of row {i + 1} separated by spaces: ").split()))
+                if not row_values:
+                    raise ValueError
+                matrix_rows.append(row_values)
+
+            row_lengths = {len(row) for row in matrix_rows}
+            if len(row_lengths) != 1:
+                raise ValueError
+            return np.array(matrix_rows)
         except ValueError:
             print("Invalid input. Please enter a sequence of numbers separated by spaces for each row.")
             return None
@@ -135,12 +139,9 @@ def get_input_and_solve_quadratic() -> bool:
 
 
 def get_input_and_solve_linear() -> bool:
-    try:
-        A = get_matrix_input()
-        b = get_vector_input()
-
-    except ValueError:
-        print("Error: Invalid input. Please enter a number.")
+    A = get_matrix_input()
+    b = get_vector_input()
+    if A is None or b is None:
         return False
 
     solution = solve_linear(A, b)
@@ -152,34 +153,35 @@ def get_input_and_solve_linear() -> bool:
 
 
 def linear_menu():
-    la_option = print_linear_menu()
-    if la_option == LINEAR_EQUATION:
-        get_input_and_solve_linear()
-    elif la_option == QUADRATIC_EQUATION:
-        get_input_and_solve_quadratic()
-    elif la_option == ADD_MATRICES:
-        pass
-    elif la_option == SUBTRACT_MATRICES:
-        pass
-    elif la_option == MULTIPLY_MATRIX_BY_SCALAR:
-        pass
-    elif la_option == MULTIPLY_MATRICES:
-        pass
-    elif la_option == MATRIX_RANK:
-        pass
-    elif la_option == MATRIX_SYMMETRIC:
-        pass
-    elif la_option == MATRIX_INVERSE:
-        pass
-    elif la_option == MATRIX_TRANSPOSE:
-        pass
-    elif la_option == MATRIX_TRACE:
-        pass
-    elif la_option == MATRIX_DETERMINANT:
-        pass
-    elif la_option == EIGENVALUES_AND_EIGENVECTORS:
-        pass
-    elif la_option == EXIT:
-        return
-    else:
-        print("Invalid option. Please try again.")
+    while True:
+        la_option = print_linear_menu()
+        if la_option == LINEAR_EQUATION:
+            get_input_and_solve_linear()
+        elif la_option == QUADRATIC_EQUATION:
+            get_input_and_solve_quadratic()
+        elif la_option == ADD_MATRICES:
+            not_implemented("Matrix addition")
+        elif la_option == SUBTRACT_MATRICES:
+            not_implemented("Matrix subtraction")
+        elif la_option == MULTIPLY_MATRIX_BY_SCALAR:
+            not_implemented("Scalar multiplication")
+        elif la_option == MULTIPLY_MATRICES:
+            not_implemented("Matrix multiplication")
+        elif la_option == MATRIX_RANK:
+            not_implemented("Matrix rank")
+        elif la_option == MATRIX_SYMMETRIC:
+            not_implemented("Symmetry checks")
+        elif la_option == MATRIX_INVERSE:
+            not_implemented("Matrix inversion")
+        elif la_option == MATRIX_TRANSPOSE:
+            not_implemented("Transpose")
+        elif la_option == MATRIX_TRACE:
+            not_implemented("Trace")
+        elif la_option == MATRIX_DETERMINANT:
+            not_implemented("Determinant")
+        elif la_option == EIGENVALUES_AND_EIGENVECTORS:
+            not_implemented("Eigenvalue decomposition")
+        elif la_option == EXIT:
+            return
+        else:
+            print("Invalid option. Please try again.")

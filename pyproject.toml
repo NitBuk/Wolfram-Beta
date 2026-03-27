@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wolfram-beta"
+version = "0.1.0"
+description = "A personal educational math toolkit with a lightweight terminal menu."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "matplotlib>=3.5",
+  "numpy>=1.23",
+  "sympy>=1.11",
+]
+
+[project.optional-dependencies]
+dev = [
+  "ruff>=0.4",
+]
+
+[project.scripts]
+wolfram-beta = "wolfram_beta.cli:main"
+
+[tool.setuptools]
+packages = ["wolfram_beta"]
+py-modules = [
+  "calculus",
+  "calculus_api",
+  "linear_algebra",
+  "linear_api",
+  "main",
+  "number_api",
+  "number_theory",
+  "statistics_and_probability",
+  "statistics_api",
+  "trigo_and_log",
+  "trigo_api",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

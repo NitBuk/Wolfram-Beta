@@ -1,8 +1,5 @@
-# linear_algebra.py
+"""Pure linear algebra helpers used by the Wolfram Beta toolkit."""
 
-##############################################################################
-#                                   Imports                                  #
-##############################################################################
 import numpy as np
 from numpy import ndarray
 from typing import Union, Tuple
@@ -20,18 +17,22 @@ def solve_linear(A: np.ndarray, b: np.ndarray) -> np.ndarray | None:
     numpy.ndarray: Solution vector.
     """
     try:
+        if A is None or b is None:
+            raise ValueError
         return np.linalg.solve(A, b)
     except np.linalg.LinAlgError:
         print("Error: Matrix A is singular.")
         return None
-    except ValueError:
+    except (TypeError, ValueError):
         print("Error: Invalid input for linear equation.")
         return None
 
 
 def solve_quadratic(a: float, b: float, c: float) -> Union[str, Tuple[float, float], float]:
     """
-    Solves a quadratic equation ax^2 + bx + c = 0.
+    Solves an equation of the form ax^2 + bx + c = 0.
+
+    If `a` is zero, the function falls back to the linear case `bx + c = 0`.
 
     Parameters:
     a, b, c (float): Coefficients of the quadratic equation.
@@ -39,15 +40,23 @@ def solve_quadratic(a: float, b: float, c: float) -> Union[str, Tuple[float, flo
     Returns:
     Union[str, Tuple[float, float]]: Real solutions of the quadratic equation.
     """
-    disc = b ** 2 - 4 * a * c
-    if disc < 0:
-        return "No real solutions"
-    elif disc == 0:
-        return -b / (2 * a)
-    else:
-        root1 = (-b + np.sqrt(disc)) / (2 * a)
-        root2 = (-b - np.sqrt(disc)) / (2 * a)
-        return root1, root2
+    try:
+        if a == 0:
+            if b == 0:
+                return "No unique solution"
+            return -c / b
+
+        disc = b ** 2 - 4 * a * c
+        if disc < 0:
+            return "No real solutions"
+        elif disc == 0:
+            return -b / (2 * a)
+        else:
+            root1 = (-b + np.sqrt(disc)) / (2 * a)
+            root2 = (-b - np.sqrt(disc)) / (2 * a)
+            return root1, root2
+    except (TypeError, ValueError, ZeroDivisionError):
+        return "Invalid input"
 
 
 def add_matrices(m1: np.ndarray, m2: np.ndarray) -> np.ndarray | None:
@@ -62,7 +71,7 @@ def add_matrices(m1: np.ndarray, m2: np.ndarray) -> np.ndarray | None:
     """
     try:
         return np.add(m1, m2)
-    except ValueError:
+    except (TypeError, ValueError):
         print("Error: Matrices must have the same dimensions.")
         return None
 
@@ -79,7 +88,7 @@ def subtract_matrices(m1: np.ndarray, m2: np.ndarray) -> np.ndarray | None:
     """
     try:
         return np.subtract(m1, m2)
-    except ValueError:
+    except (TypeError, ValueError):
         print("Error: Matrices must have the same dimensions.")
         return None
 
@@ -97,7 +106,7 @@ def scalar_multiply(scalar: float, matrix: np.ndarray) -> np.ndarray | None:
     """
     try:
         return np.multiply(scalar, matrix)
-    except ValueError:
+    except (TypeError, ValueError):
         print("Error: Invalid input for scalar multiplication.")
         return None
 
@@ -114,7 +123,7 @@ def multiply_matrices(m1: np.ndarray, m2: np.ndarray) -> np.ndarray | None:
     """
     try:
         return np.matmul(m1, m2)
-    except ValueError:
+    except (TypeError, ValueError):
         print("Error: Matrices are not compatible for multiplication.")
         return None
 
@@ -134,7 +143,7 @@ def determinant(matrix: np.ndarray) -> float | None:
     except np.linalg.LinAlgError:
         print("Error: Matrix must be square.")
         return None
-    except ValueError:
+    except (TypeError, ValueError):
         print("Error: Invalid input for determinant calculation.")
         return None
 
@@ -151,7 +160,7 @@ def is_symmetric(matrix: np.ndarray) -> bool | None:
     """
     try:
         return np.array_equal(matrix, matrix.T)
-    except ValueError:
+    except (TypeError, ValueError):
         print("Error: Invalid input for symmetry check.")
         return None
 
@@ -171,7 +180,7 @@ def inverse(matrix: np.ndarray) -> np.ndarray | None:
     except np.linalg.LinAlgError:
         print("Error: Matrix must be square and invertible.")
         return None
-    except ValueError:
+    except (TypeError, ValueError):
         print("Error: Invalid input for inverse calculation.")
         return None
 
@@ -193,7 +202,7 @@ def eigen(matrix: np.ndarray) -> Union[Tuple[np.ndarray, np.ndarray], None]:
     except np.linalg.LinAlgError:
         print("Error: Matrix must be square.")
         return None
-    except ValueError:
+    except (TypeError, ValueError):
         print("Error: Invalid input for eigenvalue and eigenvector calculation.")
         return None
 
@@ -210,7 +219,7 @@ def transpose(matrix: np.ndarray) -> np.ndarray | None:
     """
     try:
         return np.transpose(matrix)
-    except ValueError:
+    except (TypeError, ValueError):
         print("Error: Invalid input for transpose calculation.")
         return None
 
@@ -227,7 +236,7 @@ def trace(matrix: np.ndarray) -> ndarray | None:
     """
     try:
         return np.trace(matrix)
-    except ValueError:
+    except (TypeError, ValueError):
         print("Error: Invalid input for trace calculation.")
         return None
 
@@ -244,6 +253,6 @@ def rank(matrix: np.ndarray) -> int | None:
     """
     try:
         return np.linalg.matrix_rank(matrix)
-    except ValueError:
+    except (TypeError, ValueError):
         print("Error: Invalid input for rank calculation.")
         return None

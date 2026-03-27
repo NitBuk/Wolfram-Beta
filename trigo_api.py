@@ -1,9 +1,6 @@
-# trigo_api.py
+"""Interactive menu scaffolding for trigonometry and logarithms."""
 
-##############################################################################
-#                                   Imports                                  #
-##############################################################################
-from trigo_and_log import *
+from wolfram_beta.menu import not_implemented, render_menu
 
 ##############################################################################
 #                                 CONSTANTS                                  #
@@ -21,42 +18,44 @@ EXIT = 0
 
 
 def print_trigo_and_log_menu() -> int:
-    print("\nTrigonometry and Logarithms Menu:")
-    print("1: Calculate the sine of x (x in radians)")
-    print("2: Calculate the cosine of x (x in radians)")
-    print("3: Calculate the tangent of x (x in radians)")
-    print("4: Calculate the arc-sine of x")
-    print("5: Calculate the arc cosine of x")
-    print("6: Calculate the arc-tangent of x")
-    print("7: Calculate the natural logarithm of x")
-    print("8: Calculate the base-2 logarithm of x")
-    print("9: Calculate e raised to the power x")
-    print("0: Exit")
-    tl_option = int(input("Enter an option: "))
-    return tl_option
+    return render_menu(
+        "Trigonometry and Logarithms Menu",
+        [
+            (SIN, "Calculate the sine of x (x in radians)"),
+            (COS, "Calculate the cosine of x (x in radians)"),
+            (TAN, "Calculate the tangent of x (x in radians)"),
+            (ARC_SIN, "Calculate the arc-sine of x"),
+            (ARC_COS, "Calculate the arc cosine of x"),
+            (ARC_TAN, "Calculate the arc-tangent of x"),
+            (LN, "Calculate the natural logarithm of x"),
+            (LOG2, "Calculate the base-2 logarithm of x"),
+            (EXP, "Calculate e raised to the power x"),
+        ],
+    )
 
 
 def trigo_and_log_menu():
-    tl_option = print_trigo_and_log_menu()
-    if tl_option == SIN:
-        pass
-    elif tl_option == COS:
-        pass
-    elif tl_option == TAN:
-        pass
-    elif tl_option == ARC_SIN:
-        pass
-    elif tl_option == ARC_COS:
-        pass
-    elif tl_option == ARC_TAN:
-        pass
-    elif tl_option == LN:
-        pass
-    elif tl_option == LOG2:
-        pass
-    elif tl_option == EXP:
-        pass
-    elif tl_option == EXIT:
-        return
-    else:
-        print("Invalid option. Please try again.")
+    while True:
+        tl_option = print_trigo_and_log_menu()
+        if tl_option == SIN:
+            not_implemented("Sine")
+        elif tl_option == COS:
+            not_implemented("Cosine")
+        elif tl_option == TAN:
+            not_implemented("Tangent")
+        elif tl_option == ARC_SIN:
+            not_implemented("Arc-sine")
+        elif tl_option == ARC_COS:
+            not_implemented("Arc-cosine")
+        elif tl_option == ARC_TAN:
+            not_implemented("Arc-tangent")
+        elif tl_option == LN:
+            not_implemented("Natural logarithm")
+        elif tl_option == LOG2:
+            not_implemented("Base-2 logarithm")
+        elif tl_option == EXP:
+            not_implemented("Exponential")
+        elif tl_option == EXIT:
+            return
+        else:
+            print("Invalid option. Please try again.")
