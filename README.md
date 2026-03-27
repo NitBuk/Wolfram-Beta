@@ -1,58 +1,133 @@
-# Wolfram-Beta 🎯 🧮 🧰
-# Description
+# Wolfram-Beta
 
-- Wolfram-Beta is a comprehensive application designed to provide calculations across multiple areas of mathematics.
-- The calculator includes support for Linear Algebra, Calculus, Number Theory, Statistics, Probability, Trigonometry, and Logarithms.
-- It operates through an interactive text-based menu, allowing users to select the type of mathematics they are interested in, and then providing various operations related to that field.
-- Please note that this project is currently in its early stages and is far from finished. Many files require additional work and the functionality is continually being expanded. Contributions are welcome!
+Wolfram-Beta is a personal educational math toolkit and terminal CLI. It keeps the core math helpers separate from the menu shell so the project can be read, tested, and extended like a small software system instead of a one-off script.
 
-# Files Included
+It covers five areas:
 
-The following python files are included in the project:
+- Linear algebra
+- Calculus
+- Number theory
+- Statistics and probability
+- Trigonometry and logarithms
 
-- main.py - The main script that runs the calculator
-- test.py - Contains the test suite for the calculator
-- linear_algebra.py & linear_api.py - Linear algebra operations and their API functions
-- calculus.py & calculus_api.py - Calculus operations and their API functions
-- number_theory.py & number_api.py - Number theory operations and their API functions
-- statistics_and_probability.py & statistics_api.py - Statistics and Probability operations and their API functions
-- trigo_and_log.py & trigo_api.py - Trigonometry and logarithm operations and their API functions
+This repo is a local CLI project, not a deployed web app. Plotting opens a local Matplotlib window. Several submenu branches are still scaffolding, so the repository is intentionally honest about what is implemented today and what is still a placeholder.
 
-# Getting Started
+## Quick Start
 
-# Dependencies
-- This project requires Python 3.8 or later. You can download Python from the official website: https://www.python.org/downloads/
-- The project also depends on the following Python packages:
-numpy
-sympy
-matplotlib
-math
-statistics
+Requirements:
 
-# Installing
-- You can install these packages using pip:
+- Python 3.10+
+- `pip`
 
-pip install numpy sympy matplotlib math statistics
+Install and run:
 
-- To install the project, first, you need to clone the repository to your local machine. Open your terminal and run the following command:
-
+```bash
 git clone https://github.com/NitBuk/Wolfram-Beta.git
+cd Wolfram-Beta
+python3 -m pip install -e ".[dev]"
+python3 -m wolfram_beta
+```
 
-- After cloning the repository, navigate to the project's root directory and install the required packages using pip.
+`main.py` still works for compatibility:
 
-# Executing program
-- After successfully cloning the project and installing the dependencies, navigate to the root directory of the project in the terminal. You can start the calculator by running the main.py script with the following command:
+```bash
+python3 main.py
+```
 
-python main.py
+## Smallest Useful Demo
 
-- The program will provide a menu of options, each corresponding to a different mathematical field. Enter the number of your choice to proceed.
+The fastest way to see the project working is to run the CLI and try the pure math helpers directly from Python.
 
-# Running the tests
-- The calculator is also equipped with a test suite to ensure its operations are functioning correctly. You can run the tests by selecting option -1 from the main menu. This will initiate the test suite and display the results.
+```bash
+python3 - <<'PY'
+import numpy as np
+from linear_algebra import determinant
+from number_theory import find_gcd
 
-# Contributing
-We welcome contributions from the community. If you'd like to contribute, you can fork the repository, make your changes, and then submit a pull request. Pull requests are welcome for bug fixes, feature additions, and improvements.
+print(find_gcd(48, 18))
+print(determinant(np.array([[1, 2], [3, 4]])))
+PY
+```
 
-For major changes, please open an issue first to discuss what you would like to change. This helps us to coordinate our work and avoid duplicating effort or conflicting changes.
+## Supported Domains
 
-When contributing, please make sure to update the test suite as appropriate to reflect your changes. This helps us ensure that the new features or changes function as expected.
+- `linear_algebra.py` handles matrix arithmetic, determinants, inverses, eigenvalues, rank, transpose, trace, and a quadratic solver.
+- `calculus.py` handles symbolic limits, derivatives, integrals, improper integrals, and a plotting helper.
+- `number_theory.py` handles primality, prime factors, powers, square roots, GCD, LCM, Fibonacci, and factorial.
+- `statistics_and_probability.py` handles mean, median, standard deviation, variance, mode, probability, combinations, and permutations.
+- `trigo_and_log.py` handles the basic trig and logarithm functions.
+
+## Project Structure
+
+```text
+Wolfram-Beta/
+├── wolfram_beta/        # Installable CLI package and shared menu helpers
+├── calculus.py          # Calculus helpers
+├── linear_algebra.py    # Linear algebra helpers
+├── number_theory.py     # Number theory helpers
+├── statistics_and_probability.py
+├── trigo_and_log.py
+├── *_api.py             # Interactive menu layers
+├── tests/               # Unittest coverage for deterministic helpers
+├── pyproject.toml       # Packaging and lint config
+└── README.md
+```
+
+## Developer Workflow
+
+Run tests:
+
+```bash
+python3 -m unittest discover -s tests
+```
+
+Lint the code:
+
+```bash
+ruff check .
+```
+
+Format the code:
+
+```bash
+ruff format .
+```
+
+Local dev entrypoints:
+
+- `python3 -m wolfram_beta`
+- `python3 main.py`
+- `wolfram-beta` after editable install
+
+The math engine lives in the root helper modules, while the package entrypoint lives in [`wolfram_beta/cli.py`](wolfram_beta/cli.py).
+
+## Why This Repo Matters
+
+This project shows a few things recruiters and engineers usually care about:
+
+- clear separation between pure logic and user interface code
+- a reproducible install/test story
+- comfort with numerical Python, SymPy, and NumPy
+- honest scoping instead of inflated claims
+- willingness to keep an older project maintainable instead of rewriting it from scratch
+
+## Limitations
+
+- Some submenu options are still scaffolding and do not yet have full interactive flows.
+- `prime_factorization` returns unique prime factors, not repeated multiplicities.
+- Plotting requires a local graphical environment.
+- This is a toolkit, not a symbolic math platform or a production service.
+
+## Recent Improvements
+
+- Added an installable package entrypoint and console script.
+- Replaced the root test dump with a focused `unittest` suite.
+- Removed star imports and centralized menu rendering helpers.
+- Added packaging metadata, `.gitignore`, and CI.
+- Tightened the README to reflect the actual scope of the project.
+
+## Roadmap
+
+- Wire the remaining submenu actions to interactive prompts where it makes sense.
+- Add a few more example-driven tests around plotting and edge cases.
+- Split the helper modules into a package if I decide to evolve this from a toolkit into a larger library.

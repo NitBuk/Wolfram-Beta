@@ -1,8 +1,5 @@
-# number_theory.py
+"""Pure number-theory helpers used by the Wolfram Beta toolkit."""
 
-##############################################################################
-#                                   Imports                                  #
-##############################################################################
 import math
 from sympy import isprime, primefactors
 from math import gcd
@@ -19,9 +16,14 @@ def check_prime(n: int) -> bool | None:
     """
     try:
         return isprime(n)
-    except TypeError:
+    except (TypeError, ValueError):
         print("Input must be an integer.")
         return None
+
+
+def is_prime(n: int) -> bool | None:
+    """Alias for `check_prime` with a clearer name."""
+    return check_prime(n)
 
 
 def prime_factorization(n: int) -> list | None:
@@ -35,9 +37,14 @@ def prime_factorization(n: int) -> list | None:
     """
     try:
         return primefactors(n)
-    except TypeError:
+    except (TypeError, ValueError):
         print("Input must be an integer.")
         return None
+
+
+def prime_factors(n: int) -> list | None:
+    """Alias for `prime_factorization` with a clearer name."""
+    return prime_factorization(n)
 
 
 def power(base: float, exponent: float) -> float | None:
@@ -52,9 +59,14 @@ def power(base: float, exponent: float) -> float | None:
     """
     try:
         return math.pow(base, exponent)
-    except TypeError:
+    except (TypeError, ValueError):
         print("Both base and exponent must be numbers.")
         return None
+
+
+def integer_power(base: float, exponent: float) -> float | None:
+    """Alias for `power` with a clearer name."""
+    return power(base, exponent)
 
 
 def sqrt(x: float) -> float | None:
@@ -68,7 +80,7 @@ def sqrt(x: float) -> float | None:
     """
     try:
         return math.sqrt(x)
-    except ValueError:
+    except (TypeError, ValueError):
         print("Input must be a non-negative number.")
         return None
 
@@ -85,9 +97,14 @@ def find_gcd(x: int, y: int) -> int | None:
     """
     try:
         return gcd(x, y)
-    except TypeError:
+    except (TypeError, ValueError):
         print("Both x and y must be integers.")
         return None
+
+
+def gcd_pair(x: int, y: int) -> int | None:
+    """Alias for `find_gcd` with a clearer name."""
+    return find_gcd(x, y)
 
 
 def find_lcm(x: int, y: int) -> int | None:
@@ -102,9 +119,14 @@ def find_lcm(x: int, y: int) -> int | None:
     """
     try:
         return abs(x * y) // find_gcd(x, y)
-    except TypeError:
+    except (TypeError, ValueError):
         print("Both x and y must be integers.")
         return None
+
+
+def lcm_pair(x: int, y: int) -> int | None:
+    """Alias for `find_lcm` with a clearer name."""
+    return find_lcm(x, y)
 
 
 def fibonacci(n: int) -> int | None:
@@ -127,9 +149,14 @@ def fibonacci(n: int) -> int | None:
             for _ in range(n - 1):
                 a, b = b, a + b
             return b
-    except TypeError:
+    except (TypeError, ValueError):
         print("Input must be an integer.")
         return None
+
+
+def nth_fibonacci(n: int) -> int | None:
+    """Alias for `fibonacci` with a clearer name."""
+    return fibonacci(n)
 
 
 def factorial(n: int) -> int | None:
@@ -150,6 +177,6 @@ def factorial(n: int) -> int | None:
         if n < 0:
             raise ValueError("Input must be a non-negative integer.")
         return math.factorial(n)
-    except ValueError as e:
+    except (TypeError, ValueError) as e:
         print(f"Error: {e}")
         return None

@@ -1,9 +1,6 @@
-# calculus.py
+"""Pure calculus helpers used by the Wolfram Beta toolkit."""
 
-##############################################################################
-#                                   Imports                                  #
-##############################################################################
-from sympy import symbols, limit, diff, sin, integrate, oo, Function, dsolve, Eq, sympify, lambdify
+from sympy import diff, integrate, lambdify, limit, oo, symbols, sympify
 import matplotlib.pyplot as plt
 import numpy as np
 

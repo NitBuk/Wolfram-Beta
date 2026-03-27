@@ -1,9 +1,6 @@
-# calculus_api.py
+"""Interactive menu scaffolding for calculus helpers."""
 
-##############################################################################
-#                                   Imports                                  #
-##############################################################################
-from calculus import *
+from wolfram_beta.menu import not_implemented, render_menu
 
 ##############################################################################
 #                                 CONSTANTS                                  #
@@ -19,36 +16,38 @@ EXIT = 0
 
 
 def print_calculus_menu() -> int:
-    print("\nCalculus Menu:")
-    print("1: Plot a function")
-    print("2: Calculate the limit of a function at a given point")
-    print("3: Calculate the derivative of a function")
-    print("4: Calculate the indefinite integral of a function")
-    print("5: Calculate the definite integral of a function from a to b")
-    print("6: Calculate the improper integral of a function from a to infinity")
-    print("7: Calculate the second derivative of a function")
-    print("0: Exit")
-    calc_option = int(input("Enter an option: "))
-    return calc_option
+    return render_menu(
+        "Calculus Menu",
+        [
+            (PLOT, "Plot a function"),
+            (LIMIT, "Calculate the limit of a function at a given point"),
+            (DERIVATIVE, "Calculate the derivative of a function"),
+            (INDEFINITE_INTEGRAL, "Calculate the indefinite integral of a function"),
+            (DEFINITE_INTEGRAL, "Calculate the definite integral of a function from a to b"),
+            (IMPROPER_INTEGRAL, "Calculate the improper integral of a function from a to infinity"),
+            (SECOND_DERIVATIVE, "Calculate the second derivative of a function"),
+        ],
+    )
 
 
 def calculus_menu():
-    calc_option = print_calculus_menu()
-    if calc_option == PLOT:
-        pass
-    elif calc_option == LIMIT:
-        pass
-    elif calc_option == DERIVATIVE:
-        pass
-    elif calc_option == INDEFINITE_INTEGRAL:
-        pass
-    elif calc_option == DEFINITE_INTEGRAL:
-        pass
-    elif calc_option == IMPROPER_INTEGRAL:
-        pass
-    elif calc_option == SECOND_DERIVATIVE:
-        pass
-    elif calc_option == EXIT:
-        return
-    else:
-        print("Invalid option. Please try again.")
+    while True:
+        calc_option = print_calculus_menu()
+        if calc_option == PLOT:
+            not_implemented("Plotting")
+        elif calc_option == LIMIT:
+            not_implemented("Limits")
+        elif calc_option == DERIVATIVE:
+            not_implemented("Derivatives")
+        elif calc_option == INDEFINITE_INTEGRAL:
+            not_implemented("Indefinite integrals")
+        elif calc_option == DEFINITE_INTEGRAL:
+            not_implemented("Definite integrals")
+        elif calc_option == IMPROPER_INTEGRAL:
+            not_implemented("Improper integrals")
+        elif calc_option == SECOND_DERIVATIVE:
+            not_implemented("Second derivatives")
+        elif calc_option == EXIT:
+            return
+        else:
+            print("Invalid option. Please try again.")
