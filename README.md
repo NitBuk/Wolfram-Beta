@@ -34,9 +34,24 @@ python3 -m wolfram_beta
 python3 main.py
 ```
 
+## Command Mode
+
+The CLI also supports direct, non-interactive commands for a few common operations. This is the fastest way to use the toolkit from a terminal or script.
+
+Examples:
+
+```bash
+python3 -m wolfram_beta number gcd 48 18
+python3 -m wolfram_beta number prime-factors 84
+python3 -m wolfram_beta linear determinant --matrix '[[1, 2], [3, 4]]'
+python3 -m wolfram_beta calculus derivative 'x**2 + 1'
+python3 -m wolfram_beta stats mean 1 2 3 4
+python3 -m wolfram_beta trig sin 1.57079632679
+```
+
 ## Smallest Useful Demo
 
-The fastest way to see the project working is to run the CLI and try the pure math helpers directly from Python.
+The fastest way to see the project working is to run one of the direct commands above. If you want to call the helpers directly, that still works too:
 
 ```bash
 python3 - <<'PY'
@@ -62,6 +77,7 @@ PY
 ```text
 Wolfram-Beta/
 ├── wolfram_beta/        # Installable CLI package and shared menu helpers
+├── wolfram_beta/commands.py
 ├── calculus.py          # Calculus helpers
 ├── linear_algebra.py    # Linear algebra helpers
 ├── number_theory.py     # Number theory helpers
@@ -98,8 +114,9 @@ Local dev entrypoints:
 - `python3 -m wolfram_beta`
 - `python3 main.py`
 - `wolfram-beta` after editable install
+- `python3 -m wolfram_beta number gcd 48 18`
 
-The math engine lives in the root helper modules, while the package entrypoint lives in [`wolfram_beta/cli.py`](wolfram_beta/cli.py).
+The math engine lives in the root helper modules, while the package entrypoint lives in [`wolfram_beta/cli.py`](wolfram_beta/cli.py) and the command dispatcher lives in [`wolfram_beta/commands.py`](wolfram_beta/commands.py).
 
 ## Why This Repo Matters
 
@@ -121,6 +138,7 @@ This project shows a few things recruiters and engineers usually care about:
 ## Recent Improvements
 
 - Added an installable package entrypoint and console script.
+- Added a direct command mode for common math operations.
 - Replaced the root test dump with a focused `unittest` suite.
 - Removed star imports and centralized menu rendering helpers.
 - Added packaging metadata, `.gitignore`, and CI.

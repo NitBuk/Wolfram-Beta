@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
+import sys
+
 from calculus_api import calculus_menu
 from linear_api import linear_menu
 from number_api import number_theory_menu
 from statistics_api import statistics_and_probability_menu
 from trigo_api import trigo_and_log_menu
 
+from .commands import execute_command
 from .menu import render_menu
 
 
@@ -32,8 +35,13 @@ def _main_menu() -> int:
     )
 
 
-def main() -> None:
-    """Run the interactive Wolfram Beta menu."""
+def main(argv: list[str] | None = None) -> int:
+    """Run Wolfram Beta in interactive or command mode."""
+    if argv is None:
+        argv = sys.argv[1:]
+    if argv:
+        return execute_command(argv)
+
     print("Welcome to Wolfram Beta!")
     while True:
         choice = _main_menu()
@@ -54,3 +62,4 @@ def main() -> None:
         else:
             print("Invalid option. Please try again.")
 
+    return 0
